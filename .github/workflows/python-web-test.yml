@@ -60,8 +60,8 @@ jobs:
 
     - name: Run pytest test_demo_submission.py --browser=chrome --headless
       run: |
-        pytest --browser=chrome tests/test_demo_submission.py -v -s --junit-xml=junit/test-results.xml
+        pytest tests/test_demo_submission.py -v -s --junit-xml=junit/test-results.xml
         
     - name: Run pytest test_demo_submission.py --browser=firefox --headless
       run: |
-        pytest tests/test_demo_submission.py --driver firefox -v -s --junit-xml=junit/test-results.xml
+        pytest tests/test_demo_submission.py -v -s --junit-xml=junit/test-results.xml
