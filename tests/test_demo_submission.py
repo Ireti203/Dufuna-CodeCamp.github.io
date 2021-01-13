@@ -13,24 +13,24 @@ def test_demo_submission():
 
     driver.get("https://Dufuna-CodeCamp.github.io")
 
-    driver.assertEqual("Taries Empire", driver.title)
+    assertEqual("Taries Empire", driver.title)
 
     driver.find_element_by_id("quantityNumber").send_keys("5")
 
-    driver.assertEqual("187.50", driver.find_element_by_id("shippingCost").text)
-    driver.assertEqual("1437.50", driver.find_element_by_id("totalCost").text)
+    assertEqual("187.50", driver.find_element_by_id("shippingCost").text)
+    assertEqual("1437.50", driver.find_element_by_id("totalCost").text)
 
     driver.find_element_by_id("buyNow").click()
 
     # check that button is disabled if no quantity is specified or quantity is less than 1
     driver.find_element_by_id("quantityNumber").send_keys("0")
-    driver.assertFalse(True, driver.is_enabled("#buyNow"))
+    assertFalse(True, driver.is_enabled("#buyNow"))
 
     # check input fields
     driver.find_element_by_id("newsletter").send_keys("ire@mail")
     driver.find_element_by_id("requiredField").submit()
     failure = driver.find_element_by_class_name('errorMessage').text
-    driver.assertEqual(failure, "Please enter a valid mail")
+    assertEqual(failure, "Please enter a valid mail")
         
     driver.find_element_by_link_text("Contact Us").click()
 
@@ -40,7 +40,7 @@ def test_demo_submission():
     driver.find_element_by_id("order_id").send_keys("56")
     driver.find_element_by_id("validateForm").submit()
 
-    driver.assertTrue(True, driver.is_element_visible(".error-block"))
+    assertTrue(True, driver.is_element_visible(".error-block"))
 
     # Navigate to Register page
     driver.find_element_by_link_text("Register").click()
@@ -54,4 +54,6 @@ def test_demo_submission():
     driver.find_element_by_id("terms-conditions").click()
     driver.find_element_by_id("submit_form").submit()
 
-    driver.assertTrue(True, driver.is_element_visible(".error-block"))
+    assertTrue(True, driver.is_element_visible(".error-block"))
+
+    driver.quit()
