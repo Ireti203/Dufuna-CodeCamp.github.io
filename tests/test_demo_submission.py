@@ -3,7 +3,13 @@ from selenium.webdriver.common.keys import Keys
 
 def test_demo_submission():
 
-    driver = webdriver.Chrome()
+    PATH = '/usr/local/bin/chromedriver'
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
+
+    driver = webdriver.Chrome(PATH, options=chrome_options)
 
     driver.get("https://Dufuna-CodeCamp.github.io")
 
