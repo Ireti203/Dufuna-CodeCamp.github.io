@@ -17,8 +17,8 @@ def test_demo_submission():
 
     driver.find_element_by_id("quantityNumber").send_keys("5")
 
-    assert "187.50" == driver.find_element_by_id("shippingCost").text)
-    assert "1437.50" == driver.find_element_by_id("totalCost").text)
+    assert "187.50" == driver.find_element_by_id("shippingCost").text
+    assert "1437.50" == driver.find_element_by_id("totalCost").text
 
     driver.find_element_by_id("buyNow").click()
 
