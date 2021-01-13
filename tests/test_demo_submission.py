@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-def test_demo_submission():
+def test_demo_submission(self):
 
     PATH = '/usr/local/bin/chromedriver'
 
@@ -13,24 +13,24 @@ def test_demo_submission():
 
     driver.get("https://Dufuna-CodeCamp.github.io")
 
-    assertEqual("Taries Empire", driver.title)
+    self.assertEqual("Taries Empire", driver.title)
 
     driver.find_element_by_id("quantityNumber").send_keys("5")
 
-    assertEqual("187.50", driver.find_element_by_id("shippingCost").text)
-    assertEqual("1437.50", driver.find_element_by_id("totalCost").text)
+    self.assertEqual("187.50", driver.find_element_by_id("shippingCost").text)
+    self.assertEqual("1437.50", driver.find_element_by_id("totalCost").text)
 
     driver.find_element_by_id("buyNow").click()
 
     # check that button is disabled if no quantity is specified or quantity is less than 1
     driver.find_element_by_id("quantityNumber").send_keys("0")
-    assertFalse(True, driver.is_enabled("#buyNow"))
+    self.assertFalse(True, driver.is_enabled("#buyNow"))
 
     # check input fields
     driver.find_element_by_id("newsletter").send_keys("ire@mail")
     driver.find_element_by_id("requiredField").submit()
     failure = driver.find_element_by_class_name('errorMessage').text
-    assertEqual(failure, "Please enter a valid mail")
+    self.assertEqual(failure, "Please enter a valid mail")
         
     driver.find_element_by_link_text("Contact Us").click()
 
@@ -40,7 +40,7 @@ def test_demo_submission():
     driver.find_element_by_id("order_id").send_keys("56")
     driver.find_element_by_id("validateForm").submit()
 
-    assertTrue(True, driver.is_element_visible(".error-block"))
+    self.assertTrue(True, driver.is_element_visible(".error-block"))
 
     # Navigate to Register page
     driver.find_element_by_link_text("Register").click()
@@ -54,6 +54,6 @@ def test_demo_submission():
     driver.find_element_by_id("terms-conditions").click()
     driver.find_element_by_id("submit_form").submit()
 
-    assertTrue(True, driver.is_element_visible(".error-block"))
+    self.assertTrue(True, driver.is_element_visible(".error-block"))
 
     driver.quit()
