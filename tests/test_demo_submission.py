@@ -11,7 +11,7 @@ def test_demo_submission():
 
     driver = webdriver.Chrome(PATH, options=chrome_options)
 
-    driver.get("https://Dufuna-CodeCamp.github.io")
+    driver.get("https://Dufuna-CodeCamp.github.io/index.html")
 
     assert "Taries Empire" == driver.title
 
