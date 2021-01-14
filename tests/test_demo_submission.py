@@ -1,56 +1,59 @@
-from seleniumbase import BaseCase
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
-class MyTestCase(BaseCase):
+def test_demo_submission():
 
-    def test_demo_submission(self):
-        self.open("https://Dufuna-CodeCamp.github.io")
+    PATH = '/usr/local/bin/chromedriver'
 
-        self.assert_title("Taries Empire")
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
 
-        #self.click_link_text("Product Page")    #test navigation links
-        self.type("#quantityNumber", "5")
+    driver = webdriver.Chrome(PATH, options=chrome_options)
 
-        self.assert_text("187.50", "#shippingCost")
-        self.assert_text("1437.50", "#totalCost")
+    driver.get("https://Dufuna-CodeCamp.github.io")
 
-        self.click("#buyNow")
+    assert "Taries Empire" == driver.title
 
-        # check that button is disabled if no quantity is specified or quantity is less than 1
+    driver.find_element_by_id("quantityNumber").send_keys("5")
 
-        self.type("#quantityNumber", "0")
-        self.assert_false(self.is_enabled("#buyNow"))
+    assert "187.50" == driver.find_element_by_id("shippingCost").text
+    assert "1437.50" == driver.find_element_by_id("totalCost").text
 
-        # check input fields
-        self.type("#newsletter", "ire@mail")
-        self.find_element_by_id("requiredField").submit()
-        self.failure = self.get_attribute('textContent', '.errorMessage')
-        self.assertEquals(self.failure, "Please enter a valid mail")
+    driver.find_element_by_id("buyNow").click()
+
+    # check that button is disabled if no quantity is specified or quantity is less than 1
+    driver.find_element_by_id("quantityNumber").send_keys("0")
+    assert driver.is_enabled("#buyNow") == True
+
+    # check input fields
+    driver.find_element_by_id("newsletter").send_keys("ire@mail")
+    driver.find_element_by_id("requiredField").submit()
+    failure = driver.find_element_by_class_name('errorMessage').text
+    assert failure == "Please enter a valid mail"
         
-        self.click_by_link_text("Contact Us")
-        self.assert_exact_text("Please contact us via these numbers", "h3")
+    driver.find_element_by_link_text("Contact Us").click()
 
-        # Type or update text input fields
-        self.type("#fullName", "Arinola Badejo")
-        self.type("#email", "remi")
-        self.type("#order_id", "56")
-        self.find_element_by_id("validateForm").submit()
+    # Type or update text input fields
+    driver.find_element_by_id("fullName").send_keys("Arinola Badejo")
+    driver.find_element_by_id("email").send_keys("remi")
+    driver.find_element_by_id("order_id").send_keys("56")
+    driver.find_element_by_id("validateForm").submit()
 
-        self.assert_true(self.is_element_visible(".error-block"))
+    assert driver.is_element_visible(".error-block") == True
 
-        # Navigate to Register page
-        self.click_link_text("Register")
+    # Navigate to Register page
+    driver.find_element_by_link_text("Register").click()
 
-        self.type("#firstName", "Arinola")
-        self.type("#lastName", "Badejo")
-        self.type("#phoneNumber", "09087676789")
-        self.type("#email", "rinola@mail.com")
-        self.type("#password", "Customer1")
-        self.type("#confirmPassword", "Customer")
-        self.click("#terms-conditions")
-        self.find_element_by_id("submit_form").submit()
+    driver.find_element_by_id("firstName").send_keys("Arinola")
+    driver.find_element_by_id("lastName").send_keys("Badejo")
+    driver.find_element_by_id("phoneNumber").send_keys("09087676789")
+    driver.find_element_by_id("email").send_keys("rinola@mail.com")
+    driver.find_element_by_id("password").send_keys("Customer1")
+    driver.find_element_by_id("confirmPassword").send_keys("Customer")
+    driver.find_element_by_id("terms-conditions").click()
+    driver.find_element_by_id("submit_form").submit()
 
-        self.assert_true(self.is_element_visible(".error-block"))
+    assert driver.is_element_visible(".error-block") == True
 
-        self.assert_no_404_errors()
-
-        self.assert_no_js_errors()
+    driver.quit()
